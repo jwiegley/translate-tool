@@ -1,0 +1,12 @@
+[project]
+name = "translate-tool"
+version = "0.1.0"
+description = "Arabic/Persian Baha'i sacred text translator"
+requires-python = ">=3.12"
+dependencies = [
+    "openai",
+    "python-docx",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
