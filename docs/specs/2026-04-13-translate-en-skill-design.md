@@ -8,7 +8,7 @@ This skill is the primary translation interface for in-depth, high-quality work.
 
 All project files will live in a new Git repository at `~/work/translation/translate-tool`.
 
-**Note:** The earlier CLI tool spec (`2026-04-12-translate-tool-design.md`) references `translate.py` in the autoagent project root. This spec supersedes that: all project files move to `~/work/translation/translate-tool`. The CLI tool spec will be updated during implementation.
+**Note:** The earlier CLI tool spec (`2026-04-12-translate-tool-design.md`) has been updated to reference the new repo location.
 
 ## Section 1: Skill Structure
 
