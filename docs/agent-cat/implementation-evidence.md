@@ -13,6 +13,7 @@ The local `agent-cat` branch contains these independent changes:
 - `61ce8e7`: standalone captured audit package builds.
 - `ac0472b`: current manager audit mutation anchors.
 - `239c684`: typed workflow amendment composition, regression tests, and manual.
+- `4c7abb2`: runtime issue closure after the complete policy gate passed.
 
 The local `agent-workflows` implementation is `54ca322`. All 21 changed workflow
 files were compared byte-for-byte with the package-tested Nix source before
@@ -20,8 +21,9 @@ committing. The installed package therefore contains the committed workflow and
 helper implementation. The documented local runtime override remains required
 until the dependency revision is published. No changes were pushed.
 
-Runtime issue closure and live acceptance remain pending. These commits preserve
-that status rather than treating a local commit as completion evidence.
+Runtime issues are closed after their owning checks. Live `/wf` acceptance remains
+pending. The user has approved the narrow routing change and directed the
+remaining implementation, pin updates, publication, and activation to Hera.
 
 ## Requirement-to-code map
 
@@ -53,6 +55,9 @@ that status rather than treating a local commit as completion evidence.
   examples, 140 exported children, and 112 exported-class instances passed.
 - Frozen conformance: **tier0 193 passed**, **tier1 30 passed**.
 - Direct runtime policy probe, including the new amendment test, passed.
+- Complete `cli/ci/policies.sh`: **exit 0**, recorded in `policy-v5.log` and
+  `policy-v5.exit`. The focused artifact/history gate and complete policy run
+  took approximately 2.63 hours on Clio.
 
 The final production package includes the untranslated-source and synthesis-scope
 guards and passed its package gate. It was installed with `nix profile add`:
@@ -84,18 +89,17 @@ modes. All five repaired modes then passed compiled checks at both N1 and N8.
 The full policy gate reached the artifact checks, where inherited Pi environment
 variables violated an intentional isolation assertion. A subsequent isolated run
 found that Nix's temporary path included the macOS `/tmp` symlink, which private
-configuration reads correctly reject. The current run clears `AGENT_CAT_*` and
-canonicalizes `TMPDIR` inside only its test subprocess. Neither the isolation
+configuration reads correctly reject. The successful run cleared `AGENT_CAT_*`
+and canonicalized `TMPDIR` inside only its test subprocess. Neither the isolation
 assertion nor the no-symlink security check was weakened. The focused artifact
 gate subsequently passed its N1/N8 checks and real history-observation audits.
-The complete policy gate is still running.
+The complete policy gate subsequently finished successfully with exit 0.
 
 ## Pending acceptance
 
-The full runtime policy gate remains an owned background job, recorded in
-`.pi/translation-evidence/background-jobs.json` as `policy-v5`. Inspect its exit
-marker and log before claiming the complete runtime gate passed. No paid or live
-translation has been launched.
+All recorded package and runtime background jobs have terminated. The latest
+package and policy runs passed. Loop #2 is closed. No paid or live translation
+has been launched, so loop #3 and the acceptance milestone remain open.
 
 Runner configuration was subsequently lost from a restarted Pi process, producing
 `No AGENT_CAT_RUNNER is configured`. Passing `AGENT_CAT_RUNNERS` explicitly through
@@ -118,12 +122,14 @@ target bypasses routing files. The translation helper correctly refuses a normal
 passage when the back-translator shares source context. Deterministic preflight
 with the acceptance DOCX reproduced that refusal without a model call.
 
-Live-run consent has been granted. The remaining issue is platform compatibility,
-not missing chat approval. A narrow extension to let `/wf` use workflow-specific
-routing while preserving its current defaults has been proposed. It touches the
-original launch-behavior boundary and awaits the user's answer before changes.
-No isolation guard is to be weakened, and no alternate command is to be counted
-as successful `/wf` acceptance.
+The user has now approved the narrow `/wf` routing extension. That approval
+includes updating agent-cat, the dependency pin and usage in agent-workflows,
+and `~/src/nix`, followed by commits, pushes, and activation. Execution is to
+continue entirely on Hera because concurrent work there may conflict.
+The implementation and deployment changes have not been made. No isolation guard
+is to be weakened, and no alternate command counts as successful `/wf` acceptance.
+The comprehensive transfer report is outside the repository under
+`~/dl/translate-tool-hera-handoff-20261023/HANDOFF.md`.
 
 Fixture success is not evidence of linguistic fidelity, literary quality, or
 spiritual potency. Those judgments remain part of the pending live acceptance.
