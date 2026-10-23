@@ -97,12 +97,12 @@ The full runtime policy gate remains an owned background job, recorded in
 marker and log before claiming the complete runtime gate passed. No paid or live
 translation has been launched.
 
-The operator sourced `.pi/translation-evidence/activate-runner.sh` and restarted
-Pi. Native catalogue discovery now advertises the new translator, and the active
-runner's descriptor confirms file/command-tail and text/stdin inputs, all three
-routing profiles, and a typed text result. The activation record is
-`.pi/translation-evidence/pi-activation.json`. This did not rewrite shell or Home
-Manager configuration.
+Runner configuration was subsequently lost from a restarted Pi process, producing
+`No AGENT_CAT_RUNNER is configured`. Passing `AGENT_CAT_RUNNERS` explicitly through
+`agent-deck session restart --env` restored discovery of `wf:translate-en`. The
+installed descriptor confirms file/command-tail and text/stdin inputs, all three
+routing profiles, and a typed text result. No shell or Home Manager configuration
+was rewritten. Catalogue discovery does not establish successful `/wf` execution.
 
 Source-only acceptance fixtures are ready under
 `.pi/translation-evidence/acceptance/`, with primary-source URLs, normalized hashes,
@@ -111,11 +111,19 @@ Required live acceptance is the Arabic DOCX file and the multiline Persian liter
 approved through the normal Pi launch mechanism, with inspected artifacts and
 actual routing facts.
 
-The existing `/wf-launch` UI supports Native ACP. The model-facing start tool
-does not offer that target, and its tool-free child target correctly refuses this
-effectful workflow. These restrictions must not be bypassed. Read-only Claude ACP
-inspection advertises `opus` and effort choices, but that report alone does not
-establish the exact model version or sampling temperatures.
+The user requires the existing `/wf` entry point. The earlier `/wf-launch` detour
+did not satisfy that requirement. Installed `/wf` passes only `--session` with
+the current Agent Deck session and supplies no per-pin routes. That explicit
+target bypasses routing files. The translation helper correctly refuses a normal
+passage when the back-translator shares source context. Deterministic preflight
+with the acceptance DOCX reproduced that refusal without a model call.
+
+Live-run consent has been granted. The remaining issue is platform compatibility,
+not missing chat approval. A narrow extension to let `/wf` use workflow-specific
+routing while preserving its current defaults has been proposed. It touches the
+original launch-behavior boundary and awaits the user's answer before changes.
+No isolation guard is to be weakened, and no alternate command is to be counted
+as successful `/wf` acceptance.
 
 Fixture success is not evidence of linguistic fidelity, literary quality, or
 spiritual potency. Those judgments remain part of the pending live acceptance.
